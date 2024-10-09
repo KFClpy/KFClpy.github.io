@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Hive:初见</title>
+    <link href="/2024/10/09/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hive/Hive-%E5%88%9D%E8%A7%81/"/>
+    <url>/2024/10/09/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hive/Hive-%E5%88%9D%E8%A7%81/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Hive-初见："><a href="#Hive-初见：" class="headerlink" title="Hive 初见："></a>Hive 初见：</h1><p>Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端</p><p>安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接</p><p>创建metastore数据库</p><p>安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;lib&#x2F;</p><p>创建Hive配置文件hive-site.xml配置hive</p><p>初始化Hive</p><p>​此处出现两次错误，第一次由于MysqlConnectorjava版本错误导致的，第二次是未配置时区导致的</p><p><code>&lt;value&gt;jdbc:mysql://192.168.153.1:3306/metastore?useSSL=false&amp;amp;serverTimezone=UTC&lt;/value&gt;</code></p><p>启用Hiveserver2</p><p>​配置core-site.xml中的hdfs代理用户</p><p>​配置hive-site.xml中的hiveserver端口号和用户</p><p>​</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hive</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hive</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>序列化</title>
     <link href="/2024/10/04/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hadoop/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
     <url>/2024/10/04/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hadoop/%E5%BA%8F%E5%88%97%E5%8C%96/</url>
