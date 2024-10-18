@@ -19,22 +19,22 @@
   <meta name="author" content="lpy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Hive 初见：Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端 安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接 创建metastore数据库 安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;lib&amp;">
+    <meta name="description" content="大数据之路1. 日志数据采集1.1 浏览器的页面日志采集浏览器页面采集往往分为两部分： （1）页面浏览日志：分为页面浏览量PV和页面访客数UV ​	将JavaScript脚本植入到HTML文档内，当页面被浏览器解析的过程中自动执行 ​	采集后，大多数情况会立即执行发送，发送到日志服务器 ​	日志服务端收到日志后立即做出回复 ​	服务端解析日志并进行存档 （2）页面交互日志：记录用户在页面上与控件互">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hive:初见">
-<meta property="og:url" content="http://example.com/2024/10/09/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hive/Hive-%E5%88%9D%E8%A7%81/index.html">
+<meta property="og:title" content="大数据开发之路-读书">
+<meta property="og:url" content="http://example.com/2024/10/18/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF-%E8%AF%BB%E4%B9%A6/index.html">
 <meta property="og:site_name" content="Lpy&#39;s blog">
-<meta property="og:description" content="Hive 初见：Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端 安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接 创建metastore数据库 安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;lib&amp;">
+<meta property="og:description" content="大数据之路1. 日志数据采集1.1 浏览器的页面日志采集浏览器页面采集往往分为两部分： （1）页面浏览日志：分为页面浏览量PV和页面访客数UV ​	将JavaScript脚本植入到HTML文档内，当页面被浏览器解析的过程中自动执行 ​	采集后，大多数情况会立即执行发送，发送到日志服务器 ​	日志服务端收到日志后立即做出回复 ​	服务端解析日志并进行存档 （2）页面交互日志：记录用户在页面上与控件互">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-10-09T12:19:20.000Z">
-<meta property="article:modified_time" content="2024-10-10T15:21:30.870Z">
+<meta property="article:published_time" content="2024-10-18T12:08:55.000Z">
+<meta property="article:modified_time" content="2024-10-18T13:36:20.986Z">
 <meta property="article:author" content="lpy">
-<meta property="article:tag" content="Hive">
+<meta property="article:tag" content="读书">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hive:初见 - Lpy&#39;s blog</title>
+  <title>大数据开发之路-读书 - Lpy&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hive:初见"></span>
+            <span id="subtitle" data-typed-text="大数据开发之路-读书"></span>
           
         </div>
 
@@ -223,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-09 20:19" pubdate>
-          October 9, 2024 pm
+        <time datetime="2024-10-18 20:08" pubdate>
+          October 18, 2024 pm
         </time>
       </span>
     
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          252 words
+          933 words
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          3 mins
+          8 mins
         
       </span>
     
@@ -283,24 +283,42 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hive:初见</h1>
+            <h1 id="seo-header">大数据开发之路-读书</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Hive-初见："><a href="#Hive-初见：" class="headerlink" title="Hive 初见："></a>Hive 初见：</h1><p>Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端</p>
-<p>安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接</p>
-<p>创建metastore数据库</p>
-<p>安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;lib&#x2F;</p>
-<p>创建Hive配置文件hive-site.xml配置hive</p>
-<p>初始化Hive</p>
-<p>​	此处出现两次错误，第一次由于MysqlConnectorjava版本错误导致的，第二次是未配置时区导致的</p>
-<p><code>	&lt;value&gt;jdbc:mysql://192.168.153.1:3306/metastore?useSSL=false&amp;amp;serverTimezone=UTC&lt;/value&gt;</code></p>
-<p>启用Hiveserver2</p>
-<p>​	配置core-site.xml中的hdfs代理用户</p>
-<p>​	配置hive-site.xml中的hiveserver端口号和用户</p>
-<p>配置metastore的独立服务模式</p>
-<p>​	只在一个节点配置metastore的文件信息，在其他节点配置metastore的客户端连接信息，一旦配置客户端连接信息，该节点优先选择此种连接hive的方式</p>
+                <h1 id="大数据之路"><a href="#大数据之路" class="headerlink" title="大数据之路"></a>大数据之路</h1><h2 id="1-日志数据采集"><a href="#1-日志数据采集" class="headerlink" title="1. 日志数据采集"></a>1. 日志数据采集</h2><h3 id="1-1-浏览器的页面日志采集"><a href="#1-1-浏览器的页面日志采集" class="headerlink" title="1.1 浏览器的页面日志采集"></a>1.1 浏览器的页面日志采集</h3><p>浏览器页面采集往往分为两部分：</p>
+<p>（1）页面浏览日志：分为页面浏览量PV和页面访客数UV</p>
+<p>​	将JavaScript脚本植入到HTML文档内，当页面被浏览器解析的过程中自动执行</p>
+<p>​	采集后，大多数情况会立即执行发送，发送到日志服务器</p>
+<p>​	日志服务端收到日志后立即做出回复</p>
+<p>​	服务端解析日志并进行存档</p>
+<p>（2）页面交互日志：记录用户在页面上与控件互动的情况</p>
+<p>​	业务方在元数据管理界面注册需要采集日志的交互业务，平台生成代码模板供交互式页面进行嵌入，互动代码和控件一起被响应执行</p>
+<p>​	日志采集代码将日志发送到日志服务端，服务端进行简单的转储，不进行解析</p>
+<p>在页面数据采集之后，还需要进行数据清洗。</p>
+<h2 id="1-2-无线客户端的日志采集"><a href="#1-2-无线客户端的日志采集" class="headerlink" title="1.2 无线客户端的日志采集"></a>1.2 无线客户端的日志采集</h2><p>无线客户端的日志采集任务交由采集SDK完成，SDK将用户行为分为不同的事件，如页面事件和控件点击事件</p>
+<p>（1）页面事件日志</p>
+<p>​	每条页面日志记录三类信息：1.设备和用户的基本信息 2.被访问的页面信息 3.访问的路径，用户还原用户完整的访问行为</p>
+<p>​	SDK通常提供三个端口，一个在页面进入时触发，记录在进入页面时的信息，，一个在退出页面时触发，发送日志，除此之外还提供了拓展信息的接口，用于给页面日志添加相关参数</p>
+<p>​	SDK还提供透传参数的机制，当前页面的部分信息，可以传递到下一页面，方便进行行为路径追踪</p>
+<p>（2）控件点击和其他事件日志</p>
+<p>​	控件点击逻辑简单，只需要记录所在页面，用户、设备信息、控件信息等。</p>
+<p>​	其他事件由用户根据业务场景自定义事件来采集相关信息</p>
+<p>​	除此之外，SDK还提供了一些无需触发的采集接口，例如捕获应用崩溃的日志信息</p>
+<p>（3）特殊场景</p>
+<p>​	为了平衡日志大小，对于某些如曝光和一些性能技术类日志，推荐使用SDK的聚集功能，避免日志的多次上传，减小服务器压力。</p>
+<p>​	app具有明显的回退功能，这会影响SDK的访问路径，所以需要对页面是否存在回退行为进行分析</p>
+<p>（4）H5&amp;Native 日志统一</p>
+<p>​	为了避免将嵌入到Native中的H5页面日志与Native日志关联时出现数据丢失，成本过高的问题，需要对二者的日志进行统一处理，本文选用H5向Native归的方式</p>
+<p>（5）设备标识</p>
+<p>​	在统计UV时，需要通过设备标识来判断用户的唯一性，采用UTDID。</p>
+<p>（6）日志传输</p>
+<p>​	无线客户端日志的上传，不是产生一条发送一条，而是先储存在客户端本地，伺机上传。通过POST请求发送给服务端，服务端经过校验，将数据追加到客户端本地文件中进行存储，并进行维度切分，及当天的日志存储到当天文件中。还对日志进行分流。最后通过消息队列将日志数据推送给下游任务。</p>
+<h2 id="2-3-日志采集挑战"><a href="#2-3-日志采集挑战" class="headerlink" title="2.3 日志采集挑战"></a>2.3 日志采集挑战</h2><p>（1）日志分流和定制处理</p>
+<p>（2）采集与计算一体化设计</p>
+<p>​	</p>
 <p>​	</p>
 
                 
@@ -310,32 +328,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Hive/" class="category-chain-item">Hive</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Hive/" class="print-no-link">#Hive</a>
+        <a href="/tags/%E8%AF%BB%E4%B9%A6/" class="print-no-link">#读书</a>
       
     </div>
   
@@ -347,8 +344,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hive:初见</div>
-      <div>http://example.com/2024/10/09/数仓开发/Hive/Hive-初见/</div>
+      <div>大数据开发之路-读书</div>
+      <div>http://example.com/2024/10/18/数仓开发/大数据之路/大数据开发之路-读书/</div>
     </div>
     <div class="license-meta">
       
@@ -360,7 +357,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>October 9, 2024</div>
+          <div>October 18, 2024</div>
         </div>
       
       
@@ -392,18 +389,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/18/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF-%E8%AF%BB%E4%B9%A6/" title="大数据开发之路-读书">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">大数据开发之路-读书</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/04/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hadoop/%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化">
-                        <span class="hidden-mobile">序列化</span>
+                      <a href="/2024/10/09/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hive/Hive-%E5%88%9D%E8%A7%81/" title="Hive:初见">
+                        <span class="hidden-mobile">Hive:初见</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
