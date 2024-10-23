@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>SparkRDD</title>
+    <link href="/2024/10/23/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Spark/SparkRDD/"/>
+    <url>/2024/10/23/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Spark/SparkRDD/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SparkRDD概念"><a href="#SparkRDD概念" class="headerlink" title="SparkRDD概念"></a>SparkRDD概念</h1><p>1.采用装饰器设计模式，层层包装，类似于传输管道，本身不保留数据</p><p>2.类似于Java String这样的工具类</p><p>3.Spark基于MR设计，操作文件的类都采用MapReduce设计，因此SparkRDD的分区是依赖MapReduce的切片规则实现的。</p><p>在简单内存数据读取的过程中，分区按三个规则走，首先检查是否规定了任务的分区数，若没有则检查默认分区配置，没有则再采用分配的线程核数（local[])</p><p>在文件数据读取过程中，RDD的实际分区数计算方法：</p><p>1.先按目标分区数给每个分区分配空间</p><p>例如目前需要分类13byte，目标分区数2</p><p>每个分区数13&#x2F;2&#x3D;6byte</p><p>剩余空间13%2&#x3D;1byte</p><p>根据hadoop的切片规则，每个切片应该预留出0.1的空间，也就是需要准备存储数据大小的1.1倍空间，</p><p>检查剩余空间是否够用</p><p>1&gt;0.1x6&#x3D;0.6 符合剩余，不需要额外分区</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>spark</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>大数据开发之路-读书</title>
     <link href="/2024/10/18/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF-%E8%AF%BB%E4%B9%A6/"/>
     <url>/2024/10/18/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF-%E8%AF%BB%E4%B9%A6/</url>
