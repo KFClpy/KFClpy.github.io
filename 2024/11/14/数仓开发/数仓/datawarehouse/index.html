@@ -27,7 +27,7 @@
 <meta property="og:description" content="数仓知识1.什么是数据仓库 数据仓库是面向主题的（主要用于业务分析），集成的（将多源数据集成在一起），相对稳定的（数据进入到数据仓库中不易发生改变），随时间变化（随着时间发展，数据仓库中存留的数据会越来越多）的数据集合。 2.数仓建模有哪几种方式 ER建模（范式建模）、维度建模、Data Vault建模、Anchor建模，其中ER和维度是主流建模，ER建模常用于关系数据库，维度建模常用于数仓建模。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-11-14T09:18:04.000Z">
-<meta property="article:modified_time" content="2024-11-14T11:56:01.756Z">
+<meta property="article:modified_time" content="2024-11-15T17:24:14.583Z">
 <meta property="article:author" content="lpy">
 <meta property="article:tag" content="数仓知识">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          414 words
+          737 words
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          4 mins
+          7 mins
         
       </span>
     
@@ -299,6 +299,32 @@
 <p>第一范式：属性不可分割，一个格子里只有一个值</p>
 <p>第二范式：不能存在部分函数依赖，一行内的所有属性必须完全依赖于主键。例如（姓名不完全依赖于学号课名）</p>
 <p>第三范式：不能存在传递函数依赖，一行内的所有属性必须直接依赖于主键。例如（系主任名不直接依赖于学号）</p>
+<p>3.数仓分层</p>
+<p>ODS层</p>
+<p>DWD层</p>
+<p>DIM层</p>
+<p>DWM层</p>
+<p>DWS层</p>
+<p>ADS层</p>
+<p>4.数仓分层的作用：</p>
+<p>1.有更清晰的数据结构</p>
+<p>2.数据血缘追踪</p>
+<p>3.通过中间层的构建减少重复计算</p>
+<p>4.复杂问题简单化</p>
+<p>5.数仓建模的意义</p>
+<p>性能：良好的模型能帮我们快速的查找数据，减少数据的I&#x2F;O吞吐</p>
+<p>成本：减少数据冗余</p>
+<p>效率：改善用户使用数据的体验，提升使用数据的效率</p>
+<p>改善统计口径的不一致性，减少数据计算错误的可能性</p>
+<p>6.如何评价一个数仓建设的好坏</p>
+<p>完善度：汇总数据能直接满足多少查询需求，即应用层访问汇总层数据的查询比例，可以快速地响应业务方的需求。</p>
+<p>复用度：模型被读取用于产生下游模型的平均数量。</p>
+<p>规范度：主题域、分层、命名规范</p>
+<p>稳定性：取数时是否有时效保障</p>
+<p>扩展性：新增加模型时是否会和老模型产生冲突</p>
+<p>准确性：输出的数据指标质量能够保证</p>
+<p>健壮性：业务快速更新不会影响底层模型</p>
+<p>成本低：存储成本、时间成本、资源成本</p>
 
                 
               </div>
