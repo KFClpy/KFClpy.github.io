@@ -19,22 +19,22 @@
   <meta name="author" content="lpy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数仓知识1.什么是数据仓库 数据仓库是面向主题的（主要用于业务分析），集成的（将多源数据集成在一起），相对稳定的（数据进入到数据仓库中不易发生改变），随时间变化（随着时间发展，数据仓库中存留的数据会越来越多）的数据集合。 2.数仓建模有哪几种方式 ER建模（范式建模）、维度建模、Data Vault建模、Anchor建模，其中ER和维度是主流建模，ER建模常用于关系数据库，维度建模常用于数仓建模。">
+    <meta name="description" content="Hive 远程连接：Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端 安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接 创建metastore数据库 安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;li">
 <meta property="og:type" content="article">
-<meta property="og:title" content="datawarehouse">
-<meta property="og:url" content="http://example.com/2024/11/14/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E6%95%B0%E4%BB%93/datawarehouse/index.html">
+<meta property="og:title" content="Hive:初见">
+<meta property="og:url" content="http://example.com/2024/10/09/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hive/Hive-%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Lpy&#39;s blog">
-<meta property="og:description" content="数仓知识1.什么是数据仓库 数据仓库是面向主题的（主要用于业务分析），集成的（将多源数据集成在一起），相对稳定的（数据进入到数据仓库中不易发生改变），随时间变化（随着时间发展，数据仓库中存留的数据会越来越多）的数据集合。 2.数仓建模有哪几种方式 ER建模（范式建模）、维度建模、Data Vault建模、Anchor建模，其中ER和维度是主流建模，ER建模常用于关系数据库，维度建模常用于数仓建模。">
+<meta property="og:description" content="Hive 远程连接：Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端 安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接 创建metastore数据库 安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;li">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-11-14T09:18:04.000Z">
-<meta property="article:modified_time" content="2024-11-15T19:03:47.563Z">
+<meta property="article:published_time" content="2024-10-09T12:19:20.000Z">
+<meta property="article:modified_time" content="2024-12-17T09:12:09.380Z">
 <meta property="article:author" content="lpy">
-<meta property="article:tag" content="数仓知识">
+<meta property="article:tag" content="Hive">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>datawarehouse - Lpy&#39;s blog</title>
+  <title>Hive:初见 - Lpy&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="datawarehouse"></span>
+            <span id="subtitle" data-typed-text="Hive:初见"></span>
           
         </div>
 
@@ -223,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-14 17:18" pubdate>
-          November 14, 2024 pm
+        <time datetime="2024-10-09 20:19" pubdate>
+          October 9, 2024 pm
         </time>
       </span>
     
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          740 words
+          467 words
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          7 mins
+          4 mins
         
       </span>
     
@@ -283,48 +283,39 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">datawarehouse</h1>
+            <h1 id="seo-header">Hive:初见</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="数仓知识"><a href="#数仓知识" class="headerlink" title="数仓知识"></a>数仓知识</h1><p>1.什么是数据仓库</p>
-<p>数据仓库是面向主题的（主要用于业务分析），集成的（将多源数据集成在一起），相对稳定的（数据进入到数据仓库中不易发生改变），随时间变化（随着时间发展，数据仓库中存留的数据会越来越多）的数据集合。</p>
-<p>2.数仓建模有哪几种方式</p>
-<p>ER建模（范式建模）、维度建模、Data Vault建模、Anchor建模，其中ER和维度是主流建模，ER建模常用于关系数据库，维度建模常用于数仓建模。</p>
-<p>范式建模和维度建模的优缺点：</p>
-<p>范式建模符合三范式、没有数据冗余，保证了数据的一致性，数据解耦，方便更新，同时也使得表的数量较多，设计起来较为复杂，关联查询较为复杂，速度较慢，维护成本较高，需要在加入表之后仍满足范式规则。</p>
-<p>维度建模通过预计算和聚合实现了较快的查询，维护成本较低，易于扩展，设计复杂度相较于范式建模更低。</p>
-<p>ER建模的三范式</p>
-<p>第一范式：属性不可分割，一个格子里只有一个值</p>
-<p>第二范式：不能存在部分函数依赖，一行内的所有属性必须完全依赖于主键。例如（姓名不完全依赖于学号课名）</p>
-<p>第三范式：不能存在传递函数依赖，一行内的所有属性必须直接依赖于主键。例如（系主任名不直接依赖于学号）</p>
-<p>3.数仓分层</p>
-<p>ODS层</p>
-<p>DWD层</p>
-<p>DIM层</p>
-<p>DWM层</p>
-<p>DWS层</p>
-<p>ADS层</p>
-<p>4.数仓分层的作用：</p>
-<p>1.有更清晰的数据结构</p>
-<p>2.数据血缘追踪</p>
-<p>3.通过中间层的构建减少重复计算</p>
-<p>4.复杂问题简单化</p>
-<p>5.数仓建模的意义</p>
-<p>性能：良好的模型能帮我们快速的查找数据，减少数据的I&#x2F;O吞吐</p>
-<p>成本：减少数据的重复计算</p>
-<p>效率：改善用户使用数据的体验，提升使用数据的效率</p>
-<p>改善统计口径的不一致性，减少数据计算错误的可能性</p>
-<p>6.如何评价一个数仓建设的好坏</p>
-<p>完善度：汇总数据能直接满足多少查询需求，即应用层访问汇总层数据的查询比例，可以快速地响应业务方的需求。</p>
-<p>复用度：模型被读取用于产生下游模型的平均数量。</p>
-<p>规范度：主题域、分层、命名规范</p>
-<p>稳定性：取数时是否有时效保障</p>
-<p>扩展性：新增加模型时是否会和老模型产生冲突</p>
-<p>准确性：输出的数据指标质量能够保证</p>
-<p>健壮性：业务快速更新不会影响底层模型</p>
-<p>成本低：存储成本、时间成本、资源成本</p>
+                <h1 id="Hive-远程连接："><a href="#Hive-远程连接：" class="headerlink" title="Hive 远程连接："></a>Hive 远程连接：</h1><p>Hive安装：可以部署到任意一个节点，不一定在集群上，因为Hive是客户端</p>
+<p>安装Mysql以作为Hive存储元数据的数据库，来替代Hive内置的dubby数据库，为了方便，将mysql安装在windows上，以供远程连接</p>
+<p>创建metastore数据库</p>
+<p>安装mysql-connector-java驱动到&#x2F;opt&#x2F;module&#x2F;hive&#x2F;lib&#x2F;</p>
+<p>创建Hive配置文件hive-site.xml配置hive</p>
+<p>初始化Hive</p>
+<p><code>schematool -initSchema -dbType mysql</code></p>
+<p>对hive的元数据库进行初始化</p>
+<p>​	此处出现两次错误，第一次由于MysqlConnectorjava版本错误导致的，第二次是未配置时区导致的</p>
+<p><code>	&lt;value&gt;jdbc:mysql://192.168.153.1:3306/metastore?useSSL=false&amp;amp;serverTimezone=UTC&lt;/value&gt;</code></p>
+<p>​	配置core-site.xml中的hdfs代理用户</p>
+<p>​	配置hive-site.xml中的hiveserver端口号和用户</p>
+<p>配置metastore的独立服务模式</p>
+<p>​	只在一个节点配置metastore的文件信息，在其他节点配置metastore的客户端连接信息，一旦配置客户端连接信息，该节点优先选择此种连接hive的方式</p>
+<p>启动hive</p>
+<p>先启动hive metastore</p>
+<p><code>nohup hive –-service metastore &amp;</code></p>
+<p>再启动hiveserver2</p>
+<p><code>nohup hive --service hiveserver2 &amp;</code></p>
+<p>至此hive可以被外界进行访问</p>
+<h1 id="Hive-on-Spark搭建："><a href="#Hive-on-Spark搭建：" class="headerlink" title="Hive  on Spark搭建："></a>Hive  on Spark搭建：</h1><p>1.安装Hadoop</p>
+<p>2.安装Hive，且根据使用的spark版本对官方源码进行预编译</p>
+<p>3.安装spark</p>
+<p>4.更改&#x2F;opt&#x2F;module&#x2F;hive&#x2F;conf&#x2F;hive-site.xml和&#x2F;opt&#x2F;module&#x2F;hive&#x2F;conf&#x2F;spark-default.conf</p>
+<p>5.上传纯净版spark的jar包到hdfs的指定目录上</p>
+<p>6.启动hadoop，启动hive（无需额外启动spark）</p>
+<p>遇到问题：datanode是镜像复制出的，导致其uuid一致，造成了同时只能存活同一个节点且不停切换，造成了hive on spark 无法加载jar包和搜索数据的问题（显示can not obtain block），原因是节点的不同切换导致无法访问hdfs的数据副本（但使用hdfs的webui仍能正常下载数据）</p>
+<p>​	</p>
 
                 
               </div>
@@ -333,11 +324,32 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Hive/" class="category-chain-item">Hive</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E4%BB%93%E7%9F%A5%E8%AF%86/" class="print-no-link">#数仓知识</a>
+        <a href="/tags/Hive/" class="print-no-link">#Hive</a>
       
     </div>
   
@@ -349,8 +361,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>datawarehouse</div>
-      <div>http://example.com/2024/11/14/数仓开发/数仓/datawarehouse/</div>
+      <div>Hive:初见</div>
+      <div>http://example.com/2024/10/09/数仓开发/Hive/Hive-初始配置/</div>
     </div>
     <div class="license-meta">
       
@@ -362,7 +374,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>November 14, 2024</div>
+          <div>October 9, 2024</div>
         </div>
       
       
@@ -394,12 +406,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/10/18/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF-%E8%AF%BB%E4%B9%A6/" title="大数据开发之路-读书">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">大数据开发之路-读书</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/23/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Spark/SparkRDD/" title="SparkRDD">
-                        <span class="hidden-mobile">SparkRDD</span>
+                      <a href="/2024/10/04/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/Hadoop/%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化">
+                        <span class="hidden-mobile">序列化</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
