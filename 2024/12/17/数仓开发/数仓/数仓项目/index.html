@@ -19,15 +19,15 @@
   <meta name="author" content="lpy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数仓项目题目：电商交易域模型建设&amp;用户主题资产建设 项目流程： 1.交易数据接入： 完成数据源到数仓的数据接入，完成ODS层的交易数据同步。 2.交易数据明细层模型建设： DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表。 数仓项目详">
+    <meta name="description" content="数仓项目题目：电商交易域模型建设&amp;用户主题资产建设 项目流程： 1.交易数据接入： 完成数据源到数仓的数据接入，完成ODS层的交易数据同步。 2.交易数据明细层模型建设： DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表，包括：交易域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数仓项目">
 <meta property="og:url" content="http://example.com/2024/12/17/%E6%95%B0%E4%BB%93%E5%BC%80%E5%8F%91/%E6%95%B0%E4%BB%93/%E6%95%B0%E4%BB%93%E9%A1%B9%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Lpy&#39;s blog">
-<meta property="og:description" content="数仓项目题目：电商交易域模型建设&amp;用户主题资产建设 项目流程： 1.交易数据接入： 完成数据源到数仓的数据接入，完成ODS层的交易数据同步。 2.交易数据明细层模型建设： DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表。 数仓项目详">
+<meta property="og:description" content="数仓项目题目：电商交易域模型建设&amp;用户主题资产建设 项目流程： 1.交易数据接入： 完成数据源到数仓的数据接入，完成ODS层的交易数据同步。 2.交易数据明细层模型建设： DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表，包括：交易域">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-17T09:41:02.000Z">
-<meta property="article:modified_time" content="2024-12-17T13:55:13.022Z">
+<meta property="article:modified_time" content="2024-12-26T05:22:29.674Z">
 <meta property="article:author" content="lpy">
 <meta property="article:tag" content="数仓项目">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          602 words
+          1.2k words
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          6 mins
+          11 mins
         
       </span>
     
@@ -293,7 +293,11 @@
 <p>1.交易数据接入：</p>
 <p>完成数据源到数仓的数据接入，完成ODS层的交易数据同步。</p>
 <p>2.交易数据明细层模型建设：</p>
-<p>DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表。</p>
+<p>DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表，包括：交易域-订单明细大宽表、交易域-退货明细大宽表。</p>
+<p>3.交易域轻度汇总层建设：</p>
+<p>DWS:根据需求调研口径按照维度，颗粒度，周期跨度完成轻度汇总公共指标模型的建设。</p>
+<p>4.交易域相关用户主题资产建设</p>
+<p>ADS:通过DWS层公共指标组合及DWM明细内容加工完成ADS应用模型开发，建设用户主题资产表，包括：用户基本信息、用户订单统计信息、用户类型、用户价值。</p>
 <h1 id="数仓项目详细"><a href="#数仓项目详细" class="headerlink" title="数仓项目详细"></a>数仓项目详细</h1><p>1.交易数据接入</p>
 <p> 使用maxwell将业务数据增量接入到hdfs中，并使用load进行载入。</p>
 <p><strong>maxwell定义</strong>：</p>
@@ -329,6 +333,21 @@
 <ul>
 <li>实现Interceptor接口，重写initialize()，intercept(Event event)，close()方法。intercept中取event的body的相关信息，用fastjson赋值给header再返回event。</li>
 </ul>
+<p>2.dwd数据etl</p>
+<ul>
+<li>统一字段名和字段类型，例如code和name，并将code的相关描述从枚举值维护表中退化到dwd中转化为name</li>
+<li>从单字段的json数据中取出需要的数据，例如address字段</li>
+<li>数据分区的改造设计，以日期为分区，接入每一天的ods数据时首先向dwd插入createtime为当天的新数据，再对180天内的数据进行回刷，使数据的更新及时的同步到dwd中</li>
+</ul>
+<p>3.dwm 维度退化  将所有维度join到该表，并用id对同一个数据域中的所有表进行连接</p>
+<p>4.dws 从dwm中进行取数，计算公共指标，对指标进行汇总（不跨域）（统一指标口径、防止指标计算逻辑混乱、减少指标重复计算）</p>
+<p>包括最近n天（1，7，14，30，90）的创建订单数，支付订单数，交易成功订单数，订单未支付量，交易成功订单金额，平台补贴，商家补贴，各类商品订单的订单数，订单金额，收藏数，最大消费单笔金额，最高sku消费金额，折扣订单数量</p>
+<p>5.ads，用户维表join交易域订单域的dws（跨域）</p>
+<p>用户价值：是否为高价值用户，最近90天内最大单笔消费大于8000或最近90天内成功订单数为2-4个，总额为8000，或最近90天内成功订单＞&#x3D;5，最大单笔消费为1200。</p>
+<p>用户类型：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">case</span> <span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&lt;=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_30d=<span class="hljs-number">0</span>              <br>then <span class="hljs-string">&#x27;未购新用户&#x27;</span>             <br><span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&lt;=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_30d&gt;<span class="hljs-number">0</span>             <br>then <span class="hljs-string">&#x27;已购新用户&#x27;</span>            <br><span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_90d=<span class="hljs-number">0</span>            <br>then <span class="hljs-string">&#x27;未购老用户&#x27;</span>            <br><span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_90d&gt;<span class="hljs-number">0</span>             <br>then <span class="hljs-string">&#x27;已购老用户&#x27;</span>    <br>as user_register_type --STRING COMMENT <span class="hljs-string">&#x27;用户类型&#x27;</span> ,<br></code></pre></td></tr></table></figure>
+
+<p>业务流程：下单-订单优惠-订单支付-订单物流-订单取消</p>
 
                 
               </div>
