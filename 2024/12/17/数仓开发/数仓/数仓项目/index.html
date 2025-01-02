@@ -27,7 +27,7 @@
 <meta property="og:description" content="数仓项目题目：电商交易域模型建设&amp;用户主题资产建设 项目流程： 1.交易数据接入： 完成数据源到数仓的数据接入，完成ODS层的交易数据同步。 2.交易数据明细层模型建设： DWD&amp;DWM：按照电商交易业务流程SOP划分完成相应内容类型的数据域建设，梳理清楚模型设计5要素（数据域、粒度、维度、度量、事实），构建总线矩阵，完成明细层转换、解析清洗，并维度退化，合并成大宽表，包括：交易域">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-17T09:41:02.000Z">
-<meta property="article:modified_time" content="2024-12-26T05:22:29.674Z">
+<meta property="article:modified_time" content="2025-01-02T15:54:44.331Z">
 <meta property="article:author" content="lpy">
 <meta property="article:tag" content="数仓项目">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          1.3k words
         
       </span>
     
@@ -348,6 +348,7 @@
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">case</span> <span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&lt;=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_30d=<span class="hljs-number">0</span>              <br>then <span class="hljs-string">&#x27;未购新用户&#x27;</span>             <br><span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&lt;=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_30d&gt;<span class="hljs-number">0</span>             <br>then <span class="hljs-string">&#x27;已购新用户&#x27;</span>            <br><span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_90d=<span class="hljs-number">0</span>            <br>then <span class="hljs-string">&#x27;未购老用户&#x27;</span>            <br><span class="hljs-keyword">when</span> <span class="hljs-built_in">MONTHS_BETWEEN</span>(<span class="hljs-built_in">substr</span>(register_time,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>),<span class="hljs-string">&#x27;$&#123;bizdate&#125;&#x27;</span>)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> t4.order_create_cnt_90d&gt;<span class="hljs-number">0</span>             <br>then <span class="hljs-string">&#x27;已购老用户&#x27;</span>    <br>as user_register_type --STRING COMMENT <span class="hljs-string">&#x27;用户类型&#x27;</span> ,<br></code></pre></td></tr></table></figure>
 
 <p>业务流程：下单-订单优惠-订单支付-订单物流-订单取消</p>
+<p>表：主订单表，子订单表，订单优惠表，订单支付表，订单申诉状态表，支付表，物流表，物流轨迹表， 取消订单表，订单退款表，取消订单物流表，取消订单优惠表，商品spu信息表、商品sku信息表、退货原因表</p>
 
                 
               </div>

@@ -27,7 +27,7 @@
 <meta property="og:description" content="数仓知识1.什么是数据仓库 数据仓库是面向主题的（主要用于业务分析），集成的（将多源数据集成在一起），相对稳定的（数据进入到数据仓库中不易发生改变），随时间变化（随着时间发展，数据仓库中存留的数据会越来越多）的数据集合。 2.数仓建模有哪几种方式 ER建模（范式建模）、维度建模、Data Vault建模、Anchor建模，其中ER和维度是主流建模，ER建模常用于关系数据库，维度建模常用于数仓建模。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-11-14T09:18:04.000Z">
-<meta property="article:modified_time" content="2024-12-27T19:32:43.944Z">
+<meta property="article:modified_time" content="2025-01-02T15:45:53.934Z">
 <meta property="article:author" content="lpy">
 <meta property="article:tag" content="数仓知识">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k words
+          3k words
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          17 mins
+          25 mins
         
       </span>
     
@@ -423,6 +423,95 @@
 <li>min(hive.exec.reducers.max ，输入总数据量&#x2F;hive.exec.reducers.bytes.per.reducer)</li>
 <li>set mapreduce.job.reduces&#x3D;1;</li>
 </ul>
+<p>14.分桶表-分区表区别</p>
+<ul>
+<li>分桶表：clustered by sorted by 与mr过程中的分区类似，按哈希值均匀分配key值</li>
+<li>分区表：旨在更好的管理数据，按某个列值分配文件夹</li>
+</ul>
+<p>15.spark shuffle的优化</p>
+<ul>
+<li>调整map缓冲区大小，避免过多的文件溢写：set(“spark.shuffle.file.buffer”, “64”)</li>
+<li>调整reduce端拉取数据缓冲区大小：set(“spark.reducer.maxSizeInFlight”, “96”)</li>
+<li>调节reduce端拉取数据重试次数：set(“spark.shuffle.io.maxRetries”, “6”)</li>
+<li>调节reduce端拉取数据等待间隔：set(“spark.shuffle.io.retryWait”, “60s”)</li>
+<li>调整SortShuffle排序操作阈值：set(“spark.shuffle.sort.bypassMergeThreshold”, “400”)</li>
+</ul>
+<p>16.spark内存模型</p>
+<p>堆内内存：</p>
+<ul>
+<li><strong>Execution 内存</strong>：主要用于存放 Shuffle、Join、Sort、Aggregation 等计算过程中的临时数据</li>
+<li><strong>Storage 内存</strong>：主要用于存储 spark 的 cache 数据，例如RDD的缓存、unroll数据；</li>
+<li><strong>用户内存（User Memory）</strong>：主要用于存储 RDD 转换操作所需要的数据，例如 RDD 依赖等信息。</li>
+<li><strong>预留内存（Reserved Memory）</strong>：系统预留内存，会用来存储Spark内部对象。</li>
+</ul>
+<p>堆外内存：</p>
+<ul>
+<li>execution 内存和storage内存</li>
+</ul>
+<p>17.mapreduce优化</p>
+<ul>
+<li><p>输入端开启小文件输入合并 CombineHiveInputFormat</p>
+</li>
+<li><p>减少溢写（Spill）次数：调整mapreduce.task.io.sort.mb和mapreduce.map.sort.spill.percent参数值，增大触发Spill的内存上限，减少Spill次数，从而减少磁盘IO。</p>
+</li>
+<li><p>减少合并（Merge）次数：调整mapreduce.task.io.sort.factor参数，增大Merge的文件数目，减少Merge的次数，缩短MapReduce处理时间。</p>
+</li>
+<li><p>先进行Combine处理：在不影响业务逻辑的前提下，先进行Combine处理，可以减少IO操作和提高处理速度。</p>
+</li>
+<li><p>reduce端</p>
+</li>
+<li><p>（1）合理设置Map和Reduce数：两个都不能设置太少，也不能设置太多。太少，会导致Task等待，延长处理时间；太多，会导致Map、Reduce任务间竞争资源，造成处理超时等错误。</p>
+<p>（2）设置Map、Reduce共存：调整slowstart.completedmaps参数，使Map运行到一定程度后，Reduce也开始运行，减少Reduce的等待时间。</p>
+<p>（3）规避使用Reduce：因为Reduce在用于连接数据集的时候将会产生大量的网络消耗。</p>
+<p>（4）合理设置Reduce端的Buffer：默认情况下，数据达到一个阈值的时候，Buffer中的数据就会写入磁盘，然后Reduce会从磁盘中获得所有的数据。也就是说，Buffer和Reduce是没有直接关联的，中间多次写磁盘-&gt;读磁盘的过程，既然有这个弊端，那么就可以通过参数来配置，使得Buffer中的一部分数据可以直接输送到Reduce，从而减少IO开销：mapred.job.reduce.input.buffer.percent，默认为0.0。当值大于0的时候，会保留指定比例的内存读Buffer中的数据直接拿给Reduce使用。这样一来，设置Buffer需要内存，读取数据需要内存，Reduce计算也要内存，所以要根据作业的运行情况进行调整。</p>
+</li>
+</ul>
+<p>18.hive&#x2F;hdfs文件格式：</p>
+<ul>
+<li><p>text file</p>
+</li>
+<li><p>sequence file</p>
+</li>
+<li><p>orc</p>
+</li>
+<li><p>parquet</p>
+</li>
+</ul>
+<p>19.orc与parquet优缺点</p>
+<ul>
+<li>orc不支持嵌套，压缩率和读取速度比parquet高 适用于原生数据层</li>
+<li>parquet支持嵌套 适用于高层</li>
+</ul>
+<p>20.orc结构</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-comment">------ Stripe 1 ------</span><br>[<span class="hljs-keyword">Index</span> Data]Stripe 中的每一列会被划分成多个 <span class="hljs-keyword">Row</span> <span class="hljs-keyword">Group</span>，每一个 <span class="hljs-keyword">Row</span> <span class="hljs-keyword">Group</span> 默认是 <span class="hljs-number">10000</span> 行。<span class="hljs-keyword">Row</span> <span class="hljs-keyword">Group</span> 是 ORC 的最小读取单元，每一个 <span class="hljs-keyword">Row</span> <span class="hljs-keyword">Group</span> 都有其对应的统计信息，存放在 <span class="hljs-keyword">Index</span> Data 中。<br>[<span class="hljs-keyword">Row</span> Data]<br>[Stripe Footer] Stripe Footer 里面存储着 <span class="hljs-keyword">Index</span> Data 和 <span class="hljs-keyword">Row</span> Data 中每一个 Stream 的 <span class="hljs-keyword">offset</span>/length，不含列的统计信息。<br><span class="hljs-comment">------ Stripe 1 ------</span><br><br><span class="hljs-comment">------ Stripe N ------</span><br>[<span class="hljs-keyword">Index</span> Data]<br>[<span class="hljs-keyword">Row</span> Data]<br>[Stripe Footer]<br><span class="hljs-comment">------ Stripe N ------</span><br><br><span class="hljs-comment">------ Tail ------</span><br>[Metadata] 每个stripe每列的统计信息<br>[Footer] 每个stripe的元信息，行数，<span class="hljs-keyword">offset</span>，length<br>[PostScript] footer和metadata的<span class="hljs-keyword">offset</span>和length<br>[<span class="hljs-number">1</span> byte PostScript length]<br><span class="hljs-comment">------ Tail ------</span><br></code></pre></td></tr></table></figure>
+
+<p>21.parquet结构</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">------ Row <span class="hljs-keyword">Group</span> <span class="hljs-title">1</span> ------<br>[ColumnChunk] page1 page2  每个page有pageheader和实际数据<br>------ Row <span class="hljs-keyword">Group</span> <span class="hljs-title">1</span> ------<br><br>------ Row <span class="hljs-keyword">Group</span> <span class="hljs-title">N</span> ------<br>[ColumnChunk]<br>------ Row <span class="hljs-keyword">Group</span> <span class="hljs-title">N</span> ------<br><br>------ Tail ------<br>[FileMetadata] 存放了每个 Row <span class="hljs-keyword">Group</span> <span class="hljs-title">及其 ColumnChunk</span> 的元信息和统计信息。这是因为 Row <span class="hljs-keyword">Group</span> <span class="hljs-title">是没有 footer</span> 结构来承担该 Row <span class="hljs-keyword">Group</span> <span class="hljs-title">中的元信息 ，所以 FileMetadata</span> 就承担了整个文件的所有元信息。<br>[<span class="hljs-number">4</span> byte FileMetadata length]<br>------ Tail ------<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>ORC</th>
+<th>Parquet</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Footer+Metadata</td>
+<td>FileMetadata</td>
+<td>描述每一个 Stripe&#x2F;RowGroup 的元信息和统计信息。</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td>Row Group</td>
+<td>Stripe 有一个 StripeFooter，而 Row Group 没有。</td>
+</tr>
+<tr>
+<td>Row Group</td>
+<td>Page</td>
+<td>都是最小的读取单位。</td>
+</tr>
+</tbody></table>
 
                 
               </div>
